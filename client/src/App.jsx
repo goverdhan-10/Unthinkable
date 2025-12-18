@@ -63,9 +63,9 @@ const MessageItem = ({ msg, isLast, isEscalated }) => {
     <div className={`message-row ${msg.role}`}>
       <div className="message-content">
         {msg.content}
-        {/* {isEscalated && isLast && msg.role === 'assistant' && (
+        {isEscalated && isLast && msg.role === 'assistant' && (
           <div className="escalation-badge">⚠️ Human Agent Requested</div>
-        )} */}
+        )}
         
         {/* Only show copy button for Assistant */}
         {msg.role === 'assistant' && (
@@ -275,7 +275,7 @@ function App() {
               <IconMenu />
             </button>
           )}
-          <div className="model-name">Bot 1.0</div>
+          <div className="model-name">Unthinkable-Assignment</div>
         </header>
 
         <div className="messages-scroll-area">
@@ -308,7 +308,6 @@ function App() {
             />
             <button type="submit" disabled={!input.trim()}>➤</button>
           </form>
-          <div className="disclaimer">AI can make mistakes. Please check important info.</div>
         </div>
       </main>
     </div>
