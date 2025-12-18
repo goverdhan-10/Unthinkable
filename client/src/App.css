@@ -1,0 +1,269 @@
+/* ... Keep Variables, Body, Sidebar styles ... */
+:root {
+  --bg-color: #ffffff;
+  --sidebar-bg: #f8f9fa;
+  --text-color: #202124;
+  --input-bg: #ffffff;
+  --user-msg-bg: #e8f0fe;
+  --bot-msg-bg: #f1f3f4;
+  --accent-color: #1a73e8;
+  --border-color: #dadce0;
+  --hover-color: #e8eaed;
+  --active-chat-bg: #e2e7eb;
+}
+
+[data-theme='dark'] {
+  --bg-color: #131314;
+  --sidebar-bg: #1e1f20;
+  --text-color: #e3e3e3;
+  --input-bg: #282a2c;
+  --user-msg-bg: #4a4d50;
+  --bot-msg-bg: #28292a;
+  --accent-color: #8ab4f8;
+  --border-color: #444746;
+  --hover-color: #333537;
+  --active-chat-bg: #004a77;
+}
+
+body {
+  margin: 0;
+  font-family: 'Google Sans', 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* --- SIDEBAR STYLES --- */
+.sidebar {
+  width: 280px;
+  background-color: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem;
+  border-right: 1px solid var(--border-color);
+  z-index: 10;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease, opacity 0.2s ease;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.app-container.sidebar-closed .sidebar {
+  width: 0;
+  padding: 0;
+  opacity: 0;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .app-container .sidebar {
+    position: absolute;
+    height: 100%;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+    width: 280px;
+  }
+  .app-container.sidebar-closed .sidebar {
+    width: 280px;
+    transform: translateX(-100%);
+    opacity: 1;
+  }
+}
+
+.sidebar-header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+
+.new-chat-btn {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 24px;
+  border: 1px solid transparent;
+  background-color: var(--hover-color);
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 0.95rem; font-weight: 500;
+  transition: all 0.2s ease;
+}
+.new-chat-btn:hover { background-color: var(--border-color); }
+
+.close-sidebar-btn {
+  background: transparent; border: none; color: var(--text-color);
+  cursor: pointer; padding: 8px; border-radius: 8px;
+  opacity: 0.6; transition: 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.close-sidebar-btn:hover { background-color: var(--hover-color); opacity: 1; }
+
+.history-list { flex: 1; overflow-y: auto; padding-right: 5px; }
+.list-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 12px; opacity: 0.6; padding-left: 10px; }
+
+.history-item {
+  position: relative; height: 44px; padding: 0 12px;
+  border-radius: 22px; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 4px; color: var(--text-color);
+  transition: background-color 0.2s ease;
+}
+.history-item:hover { background-color: var(--hover-color); }
+.history-item.active { background-color: var(--active-chat-bg); font-weight: 500; }
+
+.chat-title { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.9rem; padding-right: 10px; }
+.actions { display: flex; gap: 4px; opacity: 0; transition: all 0.2s ease; }
+.history-item:hover .actions { opacity: 1; }
+
+.icon-svg { width: 18px; height: 18px; }
+.icon-svg.small { width: 14px; height: 14px; } /* Smaller for copy button */
+
+.icon-btn { background: transparent; border: none; cursor: pointer; padding: 6px; border-radius: 50%; color: var(--text-color); opacity: 0.6; display: flex; align-items: center; justify-content: center; }
+.icon-btn:hover { opacity: 1; background-color: rgba(128, 128, 128, 0.2); }
+.icon-btn.danger:hover { color: #ff5252; background-color: rgba(255, 82, 82, 0.1); }
+
+.edit-mode { display: flex; align-items: center; width: 100%; gap: 5px; }
+.edit-mode input { flex: 1; background: var(--bg-color); border: 1px solid var(--accent-color); color: var(--text-color); border-radius: 4px; padding: 4px 8px; font-size: 0.9rem; outline: none; }
+.edit-actions { display: flex; gap: 2px; }
+
+.sidebar-footer { margin-top: 1rem; }
+.theme-toggle { background: none; border: none; color: var(--text-color); cursor: pointer; display: flex; align-items: center; gap: 10px; padding: 10px; width: 100%; border-radius: 12px; font-size: 0.9rem; opacity: 0.8; }
+.theme-toggle:hover { background-color: var(--hover-color); opacity: 1; }
+
+/* --- MAIN CHAT INTERFACE --- */
+.chat-interface {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--bg-color);
+}
+
+.top-bar {
+  padding: 15px 20px;
+  display: flex; align-items: center; gap: 15px;
+  font-weight: 600; font-size: 1.1rem; color: var(--text-color);
+}
+.menu-btn { background: none; border: none; color: var(--text-color); font-size: 1.4rem; cursor: pointer; padding: 4px; display: flex; align-items: center; }
+
+/* --- MESSAGES AREA --- */
+.messages-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding: 20px 0;
+  gap: 15px;
+}
+
+.message-row {
+  display: flex;
+  width: 100%;
+  max-width: 760px;
+  padding: 0 10px;
+  box-sizing: border-box; 
+}
+
+.message-row.user { justify-content: flex-end; }
+.message-row.assistant { justify-content: flex-start; }
+
+/* --- MESSAGE BUBBLE & COPY BUTTON --- */
+.message-content {
+  max-width: 80%;
+  width: fit-content;
+  padding: 12px 18px;
+  border-radius: 18px;
+  line-height: 1.5;
+  font-size: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  position: relative; /* Needed for copy button positioning */
+}
+
+/* User Bubble */
+.message-row.user .message-content {
+  background-color: var(--user-msg-bg);
+  color: var(--text-color);
+  border-bottom-right-radius: 4px;
+}
+
+/* Bot Bubble */
+.message-row.assistant .message-content {
+  background-color: var(--bot-msg-bg);
+  color: var(--text-color);
+  border-bottom-left-radius: 4px;
+}
+
+/* Copy Button Styling */
+.copy-btn {
+  position: absolute;
+  bottom: -25px; /* Place it below the bubble */
+  right: 0;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.message-content:hover .copy-btn {
+  opacity: 1; /* Show on hover */
+}
+
+.copy-btn.copied {
+  color: #0f9d58;
+  border-color: #0f9d58;
+  opacity: 1; /* Keep visible if copied */
+}
+
+.escalation-badge {
+  background-color: #d93025;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 12px;
+  display: block;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.typing { font-style: italic; opacity: 0.7; letter-spacing: 2px; }
+
+/* --- INPUT AREA --- */
+.input-container {
+  padding: 24px;
+  display: flex; flex-direction: column; align-items: center;
+  background: linear-gradient(to top, var(--bg-color) 80%, transparent);
+}
+.input-box-wrapper {
+  background-color: var(--input-bg);
+  width: 100%; max-width: 760px;
+  border-radius: 30px;
+  display: flex; padding: 8px 16px 8px 24px; align-items: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+  border: 1px solid var(--border-color);
+}
+.input-box-wrapper:focus-within { box-shadow: 0 0 20px rgba(0,0,0,0.1); border-color: var(--border-color); }
+.input-box-wrapper input {
+  flex: 1; background: transparent; border: none;
+  color: var(--text-color); font-size: 1rem; outline: none; padding: 10px 0;
+}
+.input-box-wrapper button {
+  background: var(--text-color); color: var(--bg-color);
+  border: none; border-radius: 50%; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 1rem; margin-left: 10px;
+}
+.input-box-wrapper button:disabled { opacity: 0.3; cursor: default; }
+.disclaimer { font-size: 0.7rem; color: var(--text-color); opacity: 0.6; margin-top: 12px; }
