@@ -1,19 +1,40 @@
-# AI Customer Support Bot
+# Unthinkable (AI Customer Support Bot)
 
-## Project Description
-An AI-powered support bot that answers queries based on store policies and escalates complex issues to human agents.
+> A smart customer support agent capable of answering FAQs, maintaining contextual memory, and intelligently escalating complex issues to human agents.
 
-## Features
-- Contextual Memory (Remembers previous chat)
-- Smart Escalation Logic
-- Admin Dashboard Sidebar
-- Dark/Light Mode
+## 📋 Project Overview
+**Unthinkable** is a full-stack AI chatbot designed to simulate real-world support scenarios. It uses a **Hybrid Intelligence System**:
+1.  **Local Knowledge:** Checks a strict internal FAQ dataset for store policies (Returns, Shipping, etc.).
+2.  **General AI (Llama 3.3 via Groq):** Handles general conversation and context using the Groq API.
+3.  **Escalation Protocol:** Automatically detects queries requiring human intervention (e.g., specific order tracking) and flags the session.
 
-## Setup
-1. Clone the repo.
-2. Run `npm install` in both client and server folders.
-3. Add `.env` file with `GROQ_API_KEY` and `MONGO_URI`.
-4. Run `npm start` (client) and `node server.js` (server).
+## 🚀 Key Features
+* **🧠 Contextual Memory:** The bot retains previous conversation history to understand context (e.g., "What is my name?" after being told).
+* [cite_start]**⚡ Smart Escalation:** Automatically identifies sensitive queries (Order status, cancellations) and triggers an "Escalated" status[cite: 54].
+* [cite_start]**💾 Session Persistence:** All chats are saved in MongoDB, allowing users to revisit past conversations[cite: 59].
+* **⚡ High-Performance AI:** Powered by **Groq SDK** running **Llama 3.3 (70b-versatile)** for near-instant responses.
 
-## Prompts Used
-"You are a helpful customer support AI. Check store policies first. If unrelated, escalate..."
+## 🛠️ Tech Stack
+* **Frontend:** React (Vite), CSS3
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB (Mongoose)
+* **AI Engine:** Groq SDK (Llama 3.3-70b-versatile)
+
+---
+
+## Video Link 
+[Video](https://drive.google.com/file/d/13hfcHLcdxbcE70XJm5_wx7iqRvI1nPez/view?usp=sharing)
+
+## ⚙️ Setup & Installation
+
+### 1. Prerequisites
+* Node.js installed
+* MongoDB installed locally or a MongoDB Atlas URI
+* A free API Key from [Groq Cloud](https://console.groq.com/)
+
+### 2. Clone the Repository
+```bash
+git clone [https://github.com/goverdhan-10/Unthinkable.git](https://github.com/goverdhan-10/Unthinkable.git)
+cd Unthinkable
+
+
